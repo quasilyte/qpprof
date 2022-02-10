@@ -16,7 +16,7 @@ import (
 
 func main() {
 	if err := mainNoExit(); err != nil {
-		fmt.Printf("error: %v", err)
+		fmt.Printf("error: %v\n", err)
 		os.Exit(1)
 	}
 }
