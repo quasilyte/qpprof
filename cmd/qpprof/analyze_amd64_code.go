@@ -43,10 +43,19 @@ func (a *amd64analyzer) markBoundcheck(ctx *codeAnalysisContext, addr int64) boo
 		return false
 	}
 	pos := jumpTo
-	for i := 0; i < 2; i++ {
+	var call x86asm.Inst
+	// Some args could be already in the appropriate registers,
+	// but in the general case there could be a few MOV-like
+	// instructions to place args for the panic-like call.
+	// But eventually we need to reach the CALL instruction.
+	for i := 0; i < 5; i++ {
 		inst, err := x86asm.Decode(code[pos:], 64)
 		if err != nil {
 			return false
+		}
+		if inst.Op == x86asm.CALL {
+			call = inst
+			break
 		}
 		switch inst.Op {
 		case x86asm.NOP:
@@ -64,10 +73,6 @@ func (a *amd64analyzer) markBoundcheck(ctx *codeAnalysisContext, addr int64) boo
 			return false
 		}
 		pos += int64(inst.Len)
-	}
-	call, err := x86asm.Decode(code[pos:], 64)
-	if err != nil {
-		return false
 	}
 	if call.Op != x86asm.CALL {
 		return false
