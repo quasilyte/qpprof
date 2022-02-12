@@ -88,7 +88,7 @@ func (a *amd64analyzer) markBoundcheck(ctx *codeAnalysisContext, addr int64) boo
 	ctx.boundcheckAddresses[addr] = struct{}{}
 	ctx.boundcheckAddresses[addr+int64(cmp.Len)] = struct{}{}
 
-	return false
+	return true
 }
 
 func (a *amd64analyzer) markNilcheck(ctx *codeAnalysisContext, addr int64) bool {
