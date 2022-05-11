@@ -5,9 +5,13 @@ github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e/go.mod h1:nSuG5e5P
 github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMnBNeIyt5eFwwo7qiLfzFZmjNmxjkiQlU=
 github.com/google/pprof v0.0.0-20220113144219-d25a53d42d00 h1:hQb7P4XOakoaN+LET7TJ7PNoBsGm8Tf4lNtAdNwkxDE=
 github.com/google/pprof v0.0.0-20220113144219-d25a53d42d00/go.mod h1:KgnwoLYCZ8IQu3XUZ8Nc/bM9CCZFOyjUNOSygVozoDg=
+github.com/google/pprof v0.0.0-20220509035851-59ca7ad80af3 h1:vFrXU7L2gqtlP/ZGijSpaDIc16ZQrZI4FAuYtpQTyQc=
+github.com/google/pprof v0.0.0-20220509035851-59ca7ad80af3/go.mod h1:Pt31oes+eGImORns3McJn8zHefuQl2rG8l6xQjGYB4U=
 github.com/ianlancetaylor/demangle v0.0.0-20210905161508-09a460cdf81d/go.mod h1:aYm2/VgdVmcIU8iMfdMvDMsRAQjcfZSKFby6HOFvi/w=
 github.com/quasilyte/pprofutil v0.0.0-20220125111125-7b67e07006e9 h1:Enc/ujaGfEsWUM9WSEWiH491dm+lOFLqu7+OHP/AQes=
 github.com/quasilyte/pprofutil v0.0.0-20220125111125-7b67e07006e9/go.mod h1:lhNT2ibcgD3lEafvvw2SP+XnIVmWpDdvjJi9US9byiw=
+github.com/quasilyte/pprofutil v1.0.0 h1:qZbxnEByzzM3mrszE1iFmGgF0kgDIvg7AoAoN8Es5N0=
+github.com/quasilyte/pprofutil v1.0.0/go.mod h1:nc/lNBVcplIDZBYkg7vxpU6qqSn6ghc5qOZQPN+rxvk=
 github.com/quasilyte/stdinfo v0.0.0-20220114132959-f7386bf02567 h1:M8mH9eK4OUR4lu7Gd+PU1fV2/qnDNfzT635KRSObncs=
 github.com/quasilyte/stdinfo v0.0.0-20220114132959-f7386bf02567/go.mod h1:DWNGW8A4Y+GyBgPuaQJuWiy0XYftx4Xm/y5Jqk9I6VQ=
 golang.org/x/arch v0.0.0-20210923205945-b76863e36670 h1:18EFjUmQOcUvxNYSkA6jO9VAiXCnxFY6NyDX0bHDmkU=

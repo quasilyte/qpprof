@@ -63,34 +63,26 @@ func (agg *flatAggregator) Main() error {
 
 	// Collect all flat values.
 	perFunc := make(map[string]int64)
-	for _, s := range p.Sample {
-		sampleValue := s.Value[1]
-		if len(s.Location) == 0 || len(s.Location[0].Line) == 0 {
-			continue
-		}
-		l := s.Location[0].Line[0]
-		perFunc[l.Function.Name] += sampleValue
-	}
+	pprofutil.WalkSamples(p, func(s pprofutil.Sample) {
+		l := s.Stack[0]
+		perFunc[l.Function.Name] += s.Value
+	})
 
 	// Add folded values to the first non-fold caller.
-	for _, s := range p.Sample {
-		sampleValue := s.Value[1]
-		if len(s.Location) == 0 || len(s.Location[0].Line) == 0 {
-			continue
-		}
-		l := s.Location[0].Line[0]
+	pprofutil.WalkSamples(p, func(s pprofutil.Sample) {
+		l := s.Stack[0]
 		sym := pprofutil.ParseFuncName(l.Function.Name)
 		if !agg.foldPredicate(sym) {
-			continue
+			return
 		}
 		caller := agg.findNode(s, func(l *profile.Line) bool {
 			sym := pprofutil.ParseFuncName(l.Function.Name)
 			return !agg.foldPredicate(sym)
 		})
 		if caller != nil {
-			perFunc[caller.Function.Name] += sampleValue
+			perFunc[caller.Function.Name] += s.Value
 		}
-	}
+	})
 
 	if filterRe != nil {
 		for k := range perFunc {
@@ -127,12 +119,10 @@ func (agg *flatAggregator) Main() error {
 	return nil
 }
 
-func (agg *flatAggregator) findNode(s *profile.Sample, pred func(*profile.Line) bool) *profile.Line {
-	for _, loc := range s.Location {
-		for i := range loc.Line {
-			if pred(&loc.Line[i]) {
-				return &loc.Line[i]
-			}
+func (agg *flatAggregator) findNode(s pprofutil.Sample, pred func(*profile.Line) bool) *profile.Line {
+	for i := range s.Stack {
+		if pred(&s.Stack[i]) {
+			return &s.Stack[i]
 		}
 	}
 	return nil
